@@ -271,7 +271,7 @@ const whatsappLoader = (language) => {
         let message = document.getElementById('wMessage').value;
         let channelId = document.getElementById('channel_id').value;
         let channelName = document.getElementById('channel_name').value;
-        if (/^(?:\+971|00971|0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$/.test(phoneNumber)) {
+        if (/^(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$/.test(phoneNumber)) {
             let formData = new FormData();
             formData.append("name", `name 00${document.getElementById('countryCode').value}${phoneNumber}`);
             formData.append("phone_number", `00${document.getElementById('countryCode').value}${phoneNumber}`);
