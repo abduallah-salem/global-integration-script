@@ -90,7 +90,7 @@ const callButtonHandler = (et) => {
         <span class="bPhoneNumber">+9714</span>
     </a>`;
 
-        document.body.appendChild(callButtonDiv);
+        document.getElementById('lp-pom-root').appendChild(callButtonDiv);
     }
     const callButtons = document.querySelectorAll('.call-button');
 
@@ -222,7 +222,7 @@ const whatsappLoader = (language) => {
     }
 
 
-    document.body.appendChild(whatsappDiv);
+    document.getElementById('lp-pom-root').appendChild(whatsappDiv);
     let wa = document.querySelector('.wa');
     let waClose = document.querySelector('.waClose');
 
