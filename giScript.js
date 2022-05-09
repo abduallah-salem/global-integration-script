@@ -111,7 +111,7 @@ const callButtonHandler = (et) => {
             callButton.href = `clkn/tel/00${heroNumber}`;
             //Change call to action and tracking phone number
             if (callButton.classList.contains('customButton')) {
-                document.querySelector('.bPhoneNumber').innerHTML = `00${heroNumber}`
+                document.querySelector('.bPhoneNumber').innerHTML = `+${heroNumber}`
             } else if (!callButton.classList.contains('contact-us')) {
                 callButton.innerHTML = `<span class="label" style="Top: 50%; position: absolute; direction: ltr !important;"><strong>+${heroNumber}</strong></span>`;
             }
