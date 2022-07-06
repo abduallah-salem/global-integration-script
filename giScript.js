@@ -272,10 +272,11 @@ const whatsappLoader = (language) => {
         let channelId = document.getElementById('channel_id').value;
         let channelName = document.getElementById('channel_name').value;
         if (/^(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$/.test(phoneNumber)) {
+            let countryCode = document.getElementById('countryCode').value.substring(0, 3);
             let formData = new FormData();
-            formData.append("name", `name 00${document.getElementById('countryCode').value}${phoneNumber}`);
-            formData.append("phone_number", `00${document.getElementById('countryCode').value}${phoneNumber}`);
-            formData.append("email", `email 00${document.getElementById('countryCode').value}${phoneNumber}`);
+            formData.append("name", `name 00${countryCode}${phoneNumber}`);
+            formData.append("phone_number", `00${countryCode}${phoneNumber}`);
+            formData.append("email", `email 00${countryCode}${phoneNumber}`);
             formData.append("message", `${message}`);
             formData.append("channel_id", `${channelId}`);
             formData.append("channel_name", `${channelName}`);
