@@ -24,6 +24,11 @@ const messagePH = (language) => {
               direction: rtl !important;
             /* change left to right for right to left */
               text-align: right;
+            }
+            
+            label {
+            right: 0 !important;
+            left: auto;
             }`
         ));
         document.getElementsByTagName('head')[0].appendChild(rtlStyle);
