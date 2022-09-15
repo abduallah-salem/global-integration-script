@@ -19,7 +19,7 @@ const messagePH = (language) => {
     }
     if (language == 'Arabic' || language == 'arabic') {
         let rtlStyle = document.createElement('style');
-        rtlStyle.appendChild(document.createTextNode(`h1, h2, h3, h4, h5, h6, p, ul, li, ol, span, input, textarea, select, label {
+        rtlStyle.appendChild(document.createTextNode(`h1, h2, h3, h4, h5, h6, p, ul, li, ol, span, input, textarea, select, label, .lp-pom-form-field {
             /* change ltr to rtl for right to left */
               direction: rtl !important;
             /* change left to right for right to left */
