@@ -271,17 +271,30 @@ const whatsappLoader = (language) => {
         let message = document.getElementById('wMessage').value;
         let channelId = document.getElementById('channel_id').value;
         let channelName = document.getElementById('channel_name').value;
+        let campaignName = document.getElementById('utm_campaign').value;
+        let platformCampaign = document.getElementById('campaign_name').value;
+        let platformSource = document.getElementById('site_source_name').value;
+        let adName = document.getElementById('ad_name').value;
+        let adsetName = document.getElementById('adset_name').value;
+        let country = document.getElementById('country').value;
+        let city = document.getElementById('city').value;
         if (/^(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$/.test(phoneNumber)) {
             let countryCode = document.getElementById('countryCode').value.substring(0, 3);
             let formData = new FormData();
             formData.append("name", `name 00${countryCode}${phoneNumber}`);
             formData.append("phone_number", `00${countryCode}${phoneNumber}`);
-            formData.append("email", `email 00${countryCode}${phoneNumber}`);
+            formData.append("email", `00${countryCode}${phoneNumber}@whatsapplead.com`);
             formData.append("message", `${message}`);
             formData.append("channel_id", `${channelId}`);
             formData.append("channel_name", `${channelName}`);
             formData.append("Source", 'Whatsapp');
-
+            formData.append("campaign_name", `${campaignName}`);
+            formData.append("ad_name", `${adName}`);
+            formData.append("adset_name", `${adsetName}`);
+            formData.append("source_platform", `${platformSource}`);
+            formData.append("campaign_platform", `${platformCampaign}`);
+            formData.append("country", `${country}`);
+            formData.append("city", `${city}`);
             let response = fetch(webHook, {
                 method: 'POST',
                 body: formData
