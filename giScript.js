@@ -278,7 +278,7 @@ const whatsappLoader = (language) => {
         let adsetName = document.getElementById('adset_name').value;
         let country = document.getElementById('country').value;
         let city = document.getElementById('city').value;
-        let googleGCLID = document.getElementById('gclid');
+        let googleGCLID = document.getElementById('gclid').value;
         if (/^(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$/.test(phoneNumber)) {
             let countryCode = document.getElementById('countryCode').value.substring(0, 3);
             let formData = new FormData();
