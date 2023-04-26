@@ -272,6 +272,7 @@ const whatsappLoader = (language) => {
         let channelId = document.getElementById('channel_id').value;
         let channelName = document.getElementById('channel_name').value;
         let campaignName = document.getElementById('utm_campaign').value;
+        let campaignSource = document.getElementById('utm_source').value;
         let platformCampaign = document.getElementById('campaign_name').value;
         let platformSource = document.getElementById('site_source_name').value;
         let adName = document.getElementById('ad_name').value;
@@ -289,6 +290,7 @@ const whatsappLoader = (language) => {
             formData.append("channel_id", `${channelId}`);
             formData.append("channel_name", `${channelName}`);
             formData.append("Source", 'Whatsapp');
+            formData.append("utm_source", `${campaignSource}`);
             formData.append("campaign_name", `${campaignName}`);
             formData.append("ad_name", `${adName}`);
             formData.append("adset_name", `${adsetName}`);
