@@ -280,6 +280,7 @@ const whatsappLoader = (language) => {
         let country = document.getElementById('country').value;
         let city = document.getElementById('city').value;
         let googleGCLID = document.getElementById('gclid').value;
+        const waPhoneNumber2 = document.getElementById('whatsapp').value;
         if (/^(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$/.test(phoneNumber)) {
             let countryCode = document.getElementById('countryCode').value.substring(0, 3);
             let formData = new FormData();
@@ -305,10 +306,10 @@ const whatsappLoader = (language) => {
             });
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
                 // true for mobile device
-                window.open(`https://api.whatsapp.com/send?phone=${waPhoneNumber}&text=${message}`);
+                window.open(`https://api.whatsapp.com/send?phone=${waPhoneNumber2}&text=${message}`);
             } else {
                 // false for not mobile device
-                window.open(`https://web.whatsapp.com/send?phone=${waPhoneNumber}&text=${message}`);
+                window.open(`https://web.whatsapp.com/send?phone=${waPhoneNumber2}&text=${message}`);
 
             }
             dataLayer.push({ 'event': 'lead' });
