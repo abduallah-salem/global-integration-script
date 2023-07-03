@@ -300,6 +300,7 @@ const whatsappLoader = (language) => {
             formData.append("country", `${country}`);
             formData.append("city", `${city}`);
             formData.append("gclid", `${googleGCLID}`);
+            formData.append("IP", `${userIP}`};
             let response = fetch(webHook, {
                 method: 'POST',
                 body: formData
