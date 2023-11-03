@@ -95,7 +95,10 @@ const callButtonHandler = (et) => {
     const callButtons = document.querySelectorAll('.call-button');
 
     let heroNumber = `${document.getElementById('countryCode').value}${document.getElementById('heroNumber').value}`;
-
+    let heroContact = document.getElementById('heroContact')
+    if (heroContact) {
+        heroContact = heroContact.value.length > 0 ? heroContact.value : '';
+    }  
     if (callButtons.length > 0) {
         const XYZ = getUrlVars()["IET"];
         if (!heroNumber || heroNumber == '') {
@@ -111,9 +114,9 @@ const callButtonHandler = (et) => {
             callButton.href = `clkn/tel/00${heroNumber}`;
             //Change call to action and tracking phone number
             if (callButton.classList.contains('customButton')) {
-                document.querySelector('.bPhoneNumber').innerHTML = `+${heroNumber}`
+                document.querySelector('.bPhoneNumber').innerHTML = heroContact.length > 0 ? heroContact : `+${heroNumber}`
             } else if (!callButton.classList.contains('contact-us')) {
-                callButton.innerHTML = `<span class="label" style="Top: 50%; position: absolute; direction: ltr !important;"><strong>+${heroNumber}</strong></span>`;
+                callButton.innerHTML = heroContact.length > 0 ? `<span class="label" style="Top: 50%; position: absolute; direction: ltr !important;"><strong>+${heroContact}</strong></span>` : `<span class="label" style="Top: 50%; position: absolute; direction: ltr !important;"><strong>+${heroNumber}</strong></span>`;
             }
         }
     }
