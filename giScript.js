@@ -98,7 +98,10 @@ const callButtonHandler = (et) => {
     let heroContact = document.getElementById('heroContact')
     if (heroContact) {
         heroContact = heroContact.value.length > 0 ? heroContact.value : '';
-    }  
+    }
+    if (heroContact === null) {
+        heroContact = '';
+    }
     if (callButtons.length > 0) {
         const XYZ = getUrlVars()["IET"];
         if (!heroNumber || heroNumber == '') {
