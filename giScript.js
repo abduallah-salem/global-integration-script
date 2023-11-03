@@ -116,7 +116,7 @@ const callButtonHandler = (et) => {
             if (callButton.classList.contains('customButton')) {
                 document.querySelector('.bPhoneNumber').innerHTML = heroContact.length > 0 ? heroContact : `+${heroNumber}`
             } else if (!callButton.classList.contains('contact-us')) {
-                callButton.innerHTML = heroContact.length > 0 ? `<span class="label" style="Top: 50%; position: absolute; direction: ltr !important;"><strong>+${heroContact}</strong></span>` : `<span class="label" style="Top: 50%; position: absolute; direction: ltr !important;"><strong>+${heroNumber}</strong></span>`;
+                callButton.innerHTML = heroContact.length > 0 ? `<span class="label" style="Top: 50%; position: absolute; direction: ltr !important;"><strong>${heroContact}</strong></span>` : `<span class="label" style="Top: 50%; position: absolute; direction: ltr !important;"><strong>+${heroNumber}</strong></span>`;
             }
         }
     }
