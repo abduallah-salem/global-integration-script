@@ -312,26 +312,29 @@ const whatsappLoader = (language) => {
                 body: formData
             });
             const getMainURL = async (device) => {
-    try {
-      const response = await fetch(`https://api.heroleads.com/u?device=${device}`);
-      if (response.ok) {
-        const data = await response.json();
-        return data.url;
-      } else {
-        throw new Error('Failed to fetch main URL');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
+                try {
+                    const response = await fetch(`https://api.heroleads.com/u?device=${device}`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        return data.url;
+                    } else {
+                        throw new Error('Failed to fetch main URL');
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+            let device = ''
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
                 // true for mobile device
-                window.open(`https://api.whatsapp.com/send?phone=${waPhoneNumber2}&text=${message}`);
+                device = 'mobile';
             } else {
                 // false for not mobile device
-                window.open(`https://web.whatsapp.com/send?phone=${waPhoneNumber2}&text=${message}`);
-
+                device = 'desktop';
             }
+            const mainURL = await getMainURL(device);
+            window.open(`${mainURL}/send?phone=${waPhoneNumber2}&text=${message}`);
+            
             dataLayer.push({ 'event': 'lead' });
         } else {
             alert('Please enter a valid phone number the last 9 digits of your phone number e.g. 501234567')
