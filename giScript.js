@@ -311,6 +311,19 @@ const whatsappLoader = (language) => {
                 method: 'POST',
                 body: formData
             });
+            const getMainURL = async (device) => {
+    try {
+      const response = await fetch(`https://api.heroleads.com/u?device=${device}`);
+      if (response.ok) {
+        const data = await response.json();
+        return data.url;
+      } else {
+        throw new Error('Failed to fetch main URL');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
                 // true for mobile device
                 window.open(`https://api.whatsapp.com/send?phone=${waPhoneNumber2}&text=${message}`);
