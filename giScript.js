@@ -272,7 +272,7 @@ const whatsappLoader = (language) => {
         })
     })
 
-    document.getElementById('sendMessage').addEventListener("click", () => {
+    document.getElementById('sendMessage').addEventListener("click", async () => {
         let phoneNumber = document.getElementById('phoneNumber').value;
         let message = document.getElementById('wMessage').value;
         let channelId = document.getElementById('channel_id').value;
