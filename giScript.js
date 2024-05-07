@@ -1,42 +1,47 @@
 const getUrlVars = () => {
-    let vars = [],
-        hash;
-    let hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-    for (var i = 0; i < hashes.length; i++) {
-        hash = hashes[i].split('=');
-        vars.push(hash[0]);
-        vars[hash[0]] = hash[1];
-    }
-    return vars;
-}
-
+  let vars = [],
+    hash;
+  let hashes = window.location.href
+    .slice(window.location.href.indexOf("?") + 1)
+    .split("&");
+  for (var i = 0; i < hashes.length; i++) {
+    hash = hashes[i].split("=");
+    vars.push(hash[0]);
+    vars[hash[0]] = hash[1];
+  }
+  return vars;
+};
 const messagePH = (language) => {
-    const messageField = document.getElementById('message')
-    if (messageField) {
-        const messagePlaceholder = (language == 'Arabic' || language == 'arabic') ? 'اترك رسالتك' : 'Leave Your Message';
-        //Placeholder, change to Arabic by replacing the Leave Your Message text with اترك رسالتك
-        document.getElementById('message').placeholder = messagePlaceholder;
-    }
-    if (language == 'Arabic' || language == 'arabic') {
-        let rtlStyle = document.createElement('style');
-        rtlStyle.appendChild(document.createTextNode(`h1, h2, h3, h4, h5, h6, p, ul, li, ol, span, input, textarea, select, label {
+  const messageField = document.getElementById("message");
+  if (messageField) {
+    const messagePlaceholder =
+      language == "Arabic" || language == "arabic"
+        ? "اترك رسالتك"
+        : "Leave Your Message";
+    //Placeholder, change to Arabic by replacing the Leave Your Message text with اترك رسالتك
+    document.getElementById("message").placeholder = messagePlaceholder;
+  }
+  if (language == "Arabic" || language == "arabic") {
+    let rtlStyle = document.createElement("style");
+    rtlStyle.appendChild(
+      document.createTextNode(`h1, h2, h3, h4, h5, h6, p, ul, li, ol, span, input, textarea, select, label {
             /* change ltr to rtl for right to left */
               direction: rtl !important;
             /* change left to right for right to left */
               text-align: right;
-            }`
-        ));
-        document.getElementsByTagName('head')[0].appendChild(rtlStyle);
-    }
-}
+            }`),
+    );
+    document.getElementsByTagName("head")[0].appendChild(rtlStyle);
+  }
+};
 
 const fixedHeader = (et) => {
-    //Fixed Menu (Header or footer) v1.3.1
-    const boxToAppend = document.querySelector('.fixed-header');
-    if (boxToAppend == undefined) {
-        return
-    }
-    let backgroundCSS = `
+  //Fixed Menu (Header or footer) v1.3.1
+  const boxToAppend = document.querySelector(".fixed-header");
+  if (boxToAppend == undefined) {
+    return;
+  }
+  let backgroundCSS = `
         position: fixed;
         left: 0;
         top: 0px;
@@ -44,7 +49,7 @@ const fixedHeader = (et) => {
         width: 100%;
         z-index: 899;
     `;
-    let colorOverlayCSS = `
+  let colorOverlayCSS = `
         position: fixed;
         left: 0;
         top: 0px;
@@ -53,7 +58,7 @@ const fixedHeader = (et) => {
         z-index: auto;
         border-style: none none none none;
     `;
-    let childrenCSS = `
+  let childrenCSS = `
         position: fixed;
         left: auto;
         top: 0px;
@@ -64,21 +69,27 @@ const fixedHeader = (et) => {
         border-width: 0px;
         background: none;
     `;
-    const boxParent = boxToAppend.parentElement;
-    const boxClone = boxToAppend.cloneNode(true);
-    boxParent.appendChild(boxClone)
-    boxClone.style.cssText = backgroundCSS;
-    boxClone.innerHTML = '';
-    boxToAppend.style.cssText = childrenCSS;
-    boxClone.appendChild(document.getElementById(`${boxToAppend.id}-color-overlay`));
-    document.getElementById(`${boxToAppend.id}-color-overlay`).style = colorOverlayCSS;
-}
+  const boxParent = boxToAppend.parentElement;
+  const boxClone = boxToAppend.cloneNode(true);
+  boxParent.appendChild(boxClone);
+  boxClone.style.cssText = backgroundCSS;
+  boxClone.innerHTML = "";
+  boxToAppend.style.cssText = childrenCSS;
+  boxClone.appendChild(
+    document.getElementById(`${boxToAppend.id}-color-overlay`),
+  );
+  document.getElementById(`${boxToAppend.id}-color-overlay`).style =
+    colorOverlayCSS;
+};
 
 const callButtonHandler = (et) => {
-    if (document.getElementById('customContactUs').value == 'Yes' || document.getElementById('customContactUs').value == 'yes') {
-        //customer button
-        let callButtonDiv = document.createElement('div');
-        callButtonDiv.innerHTML = `    <a class="callButton customButton call-button">
+  if (
+    document.getElementById("customContactUs").value == "Yes" ||
+    document.getElementById("customContactUs").value == "yes"
+  ) {
+    //customer button
+    let callButtonDiv = document.createElement("div");
+    callButtonDiv.innerHTML = `    <a class="callButton customButton call-button">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="350" height="350" viewBox="0 0 350 350" xml:space="preserve">
             <desc>Created with Fabric.js 1.7.22</desc>
             <defs>
@@ -90,60 +101,65 @@ const callButtonHandler = (et) => {
         <span class="bPhoneNumber">+9714</span>
     </a>`;
 
-        document.getElementById('lp-pom-root').appendChild(callButtonDiv);
-    }
-    const callButtons = document.querySelectorAll('.call-button');
+    document.getElementById("lp-pom-root").appendChild(callButtonDiv);
+  }
+  const callButtons = document.querySelectorAll(".call-button");
 
-    let heroNumber = `${document.getElementById('countryCode').value}${document.getElementById('heroNumber').value}`;
-    let heroContact = document.getElementById('heroContact')
-    if (heroContact) {
-        heroContact = heroContact.value.length > 0 ? heroContact.value : '';
+  let heroNumber = `${document.getElementById("countryCode").value}${document.getElementById("heroNumber").value}`;
+  let heroContact = document.getElementById("heroContact");
+  if (heroContact) {
+    heroContact = heroContact.value.length > 0 ? heroContact.value : "";
+  }
+  if (heroContact === null) {
+    heroContact = "";
+  }
+  if (callButtons.length > 0) {
+    const XYZ = getUrlVars()["IET"];
+    if (!heroNumber || heroNumber == "") {
+      alert(
+        `No heroNumber found, please add a heroNumber field and value to complete the LP's setup`,
+      );
     }
-    if (heroContact === null) {
-        heroContact = '';
-    }
-    if (callButtons.length > 0) {
-        const XYZ = getUrlVars()["IET"];
-        if (!heroNumber || heroNumber == '') {
-            alert(`No heroNumber found, please add a heroNumber field and value to complete the LP's setup`);
-        }
 
-        if (getUrlVars()["IET"] !== undefined) {
-            heroNumber = `${document.getElementById('countryCode').value}${XYZ}`;
-        }
-
-        for (let callButton of callButtons) {
-            //Change tracking phone number
-            callButton.href = `clkn/tel/00${heroNumber}`;
-            //Change call to action and tracking phone number
-            if (callButton.classList.contains('customButton')) {
-                document.querySelector('.bPhoneNumber').innerHTML = heroContact.length > 0 ? heroContact : `+${heroNumber}`
-            } else if (!callButton.classList.contains('contact-us')) {
-                callButton.innerHTML = heroContact.length > 0 ? `<span class="label" style="Top: 50%; position: absolute; direction: ltr !important;"><strong>${heroContact}</strong></span>` : `<span class="label" style="Top: 50%; position: absolute; direction: ltr !important;"><strong>+${heroNumber}</strong></span>`;
-            }
-        }
+    if (getUrlVars()["IET"] !== undefined) {
+      heroNumber = `${document.getElementById("countryCode").value}${XYZ}`;
     }
-}
+
+    for (let callButton of callButtons) {
+      //Change tracking phone number
+      callButton.href = `clkn/tel/00${heroNumber}`;
+      //Change call to action and tracking phone number
+      if (callButton.classList.contains("customButton")) {
+        document.querySelector(".bPhoneNumber").innerHTML =
+          heroContact.length > 0 ? heroContact : `+${heroNumber}`;
+      } else if (!callButton.classList.contains("contact-us")) {
+        callButton.innerHTML =
+          heroContact.length > 0
+            ? `<span class="label" style="Top: 50%; position: absolute; direction: ltr !important;"><strong>${heroContact}</strong></span>`
+            : `<span class="label" style="Top: 50%; position: absolute; direction: ltr !important;"><strong>+${heroNumber}</strong></span>`;
+      }
+    }
+  }
+};
 
 const whatsappLoader = (language) => {
+  /* zapier webhook */
+  const webHook = document.getElementById("zapierwh").value;
 
-    /* zapier webhook */
-    const webHook = document.getElementById('zapierwh').value;
+  /* Enter the client's whatsapp number with this format +971501234567 */
+  const waPhoneNumber = document.getElementById("whatsapp").value;
 
-    /* Enter the client's whatsapp number with this format +971501234567 */
-    const waPhoneNumber = document.getElementById('whatsapp').value;
-
-    if (webHook == '' || webHook == undefined) {
-        return
-    }
-    const tl = gsap.timeline({
-        defaults: {
-            ease: "power1.out"
-        }
-    });
-    let whatsappDiv = document.createElement('div');
-    if (language == 'arabic' || language == 'Arabic') {
-        whatsappDiv.innerHTML = `<div class="waContainer">
+  if (webHook == "" || webHook == undefined) {
+    return;
+  }
+  const tl = gsap.timeline({
+    defaults: {
+      ease: "power1.out",
+    },
+  });
+  let whatsappDiv = document.createElement("div");
+  if (language == "arabic" || language == "Arabic") {
+    whatsappDiv.innerHTML = `<div class="waContainer">
         <div class="waHeader"><span>تواصل معنا الآن</span></div>
         <div class="waClose">
           <svg class="svg-icon" viewBox="0 0 20 20">
@@ -183,8 +199,8 @@ const whatsappLoader = (language) => {
             d="M166667 0c92048 0 166667 74619 166667 166667s-74619 166667-166667 166667S0 258715 0 166667 74619 0 166667 0zm63085 107282c-15665-15699-36503-24333-58696-24333-45718-1-82928 37213-82928 82964 0 14614 3828 28909 11081 41469l-11776 43001 43984-11543c12130 6608 25776 10109 39627 10109h33c45720 0 82963-37213 82963-82963 0-22175-8634-43001-24300-58694l12-12zm-58672 127669c-12391 0-24528-3339-35117-9620l-2525-1507-26100 6835 6970-25441-1633-2613c-6939-10958-10561-23642-10561-36687 0-38029 30935-68976 69003-68976 18407 0 35750 7198 48759 20206 13015 13049 20173 30351 20173 48790-31 38056-30965 69003-68975 69003l6 10zm37804-51665c-2061-1049-12265-6048-14160-6740-1894-691-3274-1049-4679 1048-1372 2060-5359 6740-6574 8139-1215 1375-2417 1571-4476 522-2061-1049-8767-3235-16677-10300-6153-5491-10326-12293-11539-14353-1214-2060-136-3204 920-4215 953-923 2063-2416 3108-3631 1049-1214 1375-2063 2063-3465 691-1375 354-2590-167-3632-522-1045-4679-11249-6373-15407-1664-4062-3401-3496-4677-3566-1214-62-2589-62-3958-62-1368 0-3631 520-5525 2585-1894 2061-7261 7098-7261 17299 0 10205 7422 20047 8464 21453 1048 1371 14620 22332 35412 31301 4941 2124 8800 3400 11807 4387 4972 1568 9482 1342 13049 815 3987-587 12265-5006 14002-9848 1735-4845 1735-8990 1215-9847-492-923-1864-1433-3957-2494l-15 13h-1z"
             fill="url(#a)"></path>
         </svg></div>`;
-    } else {
-        whatsappDiv.innerHTML = `<div class="waContainer">
+  } else {
+    whatsappDiv.innerHTML = `<div class="waContainer">
         <div class="waHeader"><span>Contact us now!</span></div>
         <div class="waClose">
           <svg class="svg-icon" viewBox="0 0 20 20">
@@ -225,139 +241,157 @@ const whatsappLoader = (language) => {
             d="M166667 0c92048 0 166667 74619 166667 166667s-74619 166667-166667 166667S0 258715 0 166667 74619 0 166667 0zm63085 107282c-15665-15699-36503-24333-58696-24333-45718-1-82928 37213-82928 82964 0 14614 3828 28909 11081 41469l-11776 43001 43984-11543c12130 6608 25776 10109 39627 10109h33c45720 0 82963-37213 82963-82963 0-22175-8634-43001-24300-58694l12-12zm-58672 127669c-12391 0-24528-3339-35117-9620l-2525-1507-26100 6835 6970-25441-1633-2613c-6939-10958-10561-23642-10561-36687 0-38029 30935-68976 69003-68976 18407 0 35750 7198 48759 20206 13015 13049 20173 30351 20173 48790-31 38056-30965 69003-68975 69003l6 10zm37804-51665c-2061-1049-12265-6048-14160-6740-1894-691-3274-1049-4679 1048-1372 2060-5359 6740-6574 8139-1215 1375-2417 1571-4476 522-2061-1049-8767-3235-16677-10300-6153-5491-10326-12293-11539-14353-1214-2060-136-3204 920-4215 953-923 2063-2416 3108-3631 1049-1214 1375-2063 2063-3465 691-1375 354-2590-167-3632-522-1045-4679-11249-6373-15407-1664-4062-3401-3496-4677-3566-1214-62-2589-62-3958-62-1368 0-3631 520-5525 2585-1894 2061-7261 7098-7261 17299 0 10205 7422 20047 8464 21453 1048 1371 14620 22332 35412 31301 4941 2124 8800 3400 11807 4387 4972 1568 9482 1342 13049 815 3987-587 12265-5006 14002-9848 1735-4845 1735-8990 1215-9847-492-923-1864-1433-3957-2494l-15 13h-1z"
             fill="url(#a)"></path>
         </svg></div>`;
-    }
+  }
 
+  document.getElementById("lp-pom-root").appendChild(whatsappDiv);
+  let wa = document.querySelector(".wa");
+  let waClose = document.querySelector(".waClose");
 
-    document.getElementById('lp-pom-root').appendChild(whatsappDiv);
-    let wa = document.querySelector('.wa');
-    let waClose = document.querySelector('.waClose');
-
-
-    setTimeout(() => {
-        tl.to(".wa", {
-            scale: 1,
-            transformOrigin: "50% 50%",
-            duration: 1,
-            ease: "back.out(2)"
-        })
-    }, 3000)
-    wa.addEventListener('click', () => {
-        tl.to(".wa", {
-            scale: 0,
-            transformOrigin: "50% 50%",
-            duration: 1,
-            ease: "elastic.out(1.75, 1)"
-        });
-        tl.to(".waContainer", {
-            y: "0%",
-            duration: 1,
-            ease: Back.easeOut.config(1.7),
-            stagger: 0.5
-        }, "-=1");
-
-    })
-
-    waClose.addEventListener('click', () => {
-        tl.to(".waContainer", {
-            y: "200%",
-            duration: 1,
-            ease: Back.easeOut.config(1.7),
-            stagger: 0.5
-        });
-        tl.to(".wa", {
-            scale: 1,
-            transformOrigin: "50% 50%",
-            duration: 1,
-            ease: "back.out(2)"
-        })
-    })
-
-    document.getElementById('sendMessage').addEventListener("click", async () => {
-        let phoneNumber = document.getElementById('phoneNumber').value;
-        let message = document.getElementById('wMessage').value;
-        let channelId = document.getElementById('channel_id').value;
-        let channelName = document.getElementById('channel_name').value;
-        let campaignName = document.getElementById('utm_campaign').value;
-        let campaignSource = document.getElementById('utm_source').value;
-        let platformCampaign = document.getElementById('campaign_name').value;
-        let platformSource = document.getElementById('site_source_name').value;
-        let adName = document.getElementById('ad_name').value;
-        let adsetName = document.getElementById('adset_name').value;
-        let country = document.getElementById('country').value;
-        let city = document.getElementById('city').value;
-        let googleGCLID = document.getElementById('gclid').value;
-        const waPhoneNumber2 = document.getElementById('whatsapp').value;
-        if (/^(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$/.test(phoneNumber)) {
-            let countryCode = document.getElementById('countryCode').value.substring(0, 3);
-            let formData = new FormData();
-            formData.append("name", `name 00${countryCode}${phoneNumber}`);
-            formData.append("phone_number", `00${countryCode}${phoneNumber}`);
-            formData.append("email", `00${countryCode}${phoneNumber}@whatsapplead.com`);
-            formData.append("message", `${message}`);
-            formData.append("channel_id", `${channelId}`);
-            formData.append("channel_name", `${channelName}`);
-            formData.append("Source", 'Whatsapp');
-            formData.append("utm_source", `${campaignSource}`);
-            formData.append("campaign_name", `${campaignName}`);
-            formData.append("ad_name", `${adName}`);
-            formData.append("adset_name", `${adsetName}`);
-            formData.append("source_platform", `${platformSource}`);
-            formData.append("campaign_platform", `${platformCampaign}`);
-            formData.append("country", `${country}`);
-            formData.append("city", `${city}`);
-            formData.append("gclid", `${googleGCLID}`);
-            formData.append("IP", `${userIP}`);
-            formData.append("url", `${window.location.href}`);
-            let response = fetch(webHook, {
-                method: 'POST',
-                body: formData
-            });
-            const getMainURL = async (device) => {
-                try {
-                    const response = await fetch(`https://api.heroleads.com/u?device=${device}`);
-                    if (response.ok) {
-                        const data = await response.json();
-                        return data.url;
-                    } else {
-                        throw new Error('Failed to fetch main URL');
-                    }
-                } catch (error) {
-                    console.error(error);
-                }
-            }
-            let device = ''
-            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
-                // true for mobile device
-                device = 'mobile';
-            } else {
-                // false for not mobile device
-                device = 'desktop';
-            }
-            const mainURL = await getMainURL(device);
-            window.open(`${mainURL}/send?phone=${waPhoneNumber2}&text=${message}`);
-            
-            dataLayer.push({ 'event': 'lead' });
-        } else {
-            alert('Please enter a valid phone number the last 9 digits of your phone number e.g. 501234567')
-        }
+  setTimeout(() => {
+    tl.to(".wa", {
+      scale: 1,
+      transformOrigin: "50% 50%",
+      duration: 1,
+      ease: "back.out(2)",
     });
-}
+  }, 3000);
+  wa.addEventListener("click", () => {
+    tl.to(".wa", {
+      scale: 0,
+      transformOrigin: "50% 50%",
+      duration: 1,
+      ease: "elastic.out(1.75, 1)",
+    });
+    tl.to(
+      ".waContainer",
+      {
+        y: "0%",
+        duration: 1,
+        ease: Back.easeOut.config(1.7),
+        stagger: 0.5,
+      },
+      "-=1",
+    );
+  });
 
-window.addEventListener('DOMContentLoaded', (event) => {
-    const lpLanguage = document.getElementById('lpLanguage').value;
-    messagePH(lpLanguage);
+  waClose.addEventListener("click", () => {
+    tl.to(".waContainer", {
+      y: "200%",
+      duration: 1,
+      ease: Back.easeOut.config(1.7),
+      stagger: 0.5,
+    });
+    tl.to(".wa", {
+      scale: 1,
+      transformOrigin: "50% 50%",
+      duration: 1,
+      ease: "back.out(2)",
+    });
+  });
+  document.getElementById("sendMessage").addEventListener("click", async () => {
+    let phoneNumber = document.getElementById("phoneNumber").value;
+    let message = document.getElementById("wMessage").value;
+    let channelId = document.getElementById("channel_id").value;
+    let channelName = document.getElementById("channel_name").value;
+    let campaignName = document.getElementById("utm_campaign").value;
+    let campaignSource = document.getElementById("utm_source").value;
+    let platformCampaign = document.getElementById("campaign_name").value;
+    let platformSource = document.getElementById("site_source_name").value;
+    let adName = document.getElementById("ad_name").value;
+    let adsetName = document.getElementById("adset_name").value;
+    let country = document.getElementById("country").value;
+    let city = document.getElementById("city").value;
+    let googleGCLID = document.getElementById("gclid").value;
+    const waPhoneNumber2 = document.getElementById("whatsapp").value;
+    if (/^(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$/.test(phoneNumber)) {
+      if (localStorage.getItem("submissionFlag") === "0") {
+        let countryCode = document
+          .getElementById("countryCode")
+          .value.substring(0, 3);
+        let formData = new FormData();
+        formData.append("name", `name 00${countryCode}${phoneNumber}`);
+        formData.append("phone_number", `00${countryCode}${phoneNumber}`);
+        formData.append(
+          "email",
+          `00${countryCode}${phoneNumber}@whatsapplead.com`,
+        );
+        formData.append("message", `${message}`);
+        formData.append("channel_id", `${channelId}`);
+        formData.append("channel_name", `${channelName}`);
+        formData.append("Source", "Whatsapp");
+        formData.append("utm_source", `${campaignSource}`);
+        formData.append("campaign_name", `${campaignName}`);
+        formData.append("ad_name", `${adName}`);
+        formData.append("adset_name", `${adsetName}`);
+        formData.append("source_platform", `${platformSource}`);
+        formData.append("campaign_platform", `${platformCampaign}`);
+        formData.append("country", `${country}`);
+        formData.append("city", `${city}`);
+        formData.append("gclid", `${googleGCLID}`);
+        formData.append("IP", `${userIP}`);
+        formData.append("url", `${window.location.href}`);
+        let response = fetch(webHook, {
+          method: "POST",
+          body: formData,
+        });
+        localStorage.setItem("submissionFlag", "1")
+      }
+      const getMainURL = async (device) => {
+        try {
+          const response = await fetch(
+            `https://api.heroleads.com/u?device=${device}`,
+          );
+          if (response.ok) {
+            const data = await response.json();
+            return data.url;
+          } else {
+            throw new Error("Failed to fetch main URL");
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      let device = "";
+      if (
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent,
+        ) ||
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)
+      ) {
+        // true for mobile device
+        device = "mobile";
+      } else {
+        // false for not mobile device
+        device = "desktop";
+      }
+      const mainURL = await getMainURL(device);
+      window.open(`${mainURL}/send?phone=${waPhoneNumber2}&text=${message}`);
 
-    fixedHeader(1);
-
-    //smooth scroll
-    document.querySelector('html').style.scrollBehavior = 'smooth';
-
-    callButtonHandler(1);
-
-    let thisYear = document.getElementById('thisYear');
-    if (thisYear) {
-        const getYear = new Date().getFullYear();
-        thisYear.innerHTML = getYear;
+      dataLayer.push({ event: "lead" });
+    } else {
+      alert(
+        "Please enter a valid phone number the last 9 digits of your phone number e.g. 501234567",
+      );
     }
-    whatsappLoader(lpLanguage);
+  });
+};
+
+window.addEventListener("DOMContentLoaded", (event) => {
+  const lpLanguage = document.getElementById("lpLanguage").value;
+  messagePH(lpLanguage);
+
+  fixedHeader(1);
+
+  //smooth scroll
+  document.querySelector("html").style.scrollBehavior = "smooth";
+
+  callButtonHandler(1);
+
+  let thisYear = document.getElementById("thisYear");
+  if (thisYear) {
+    const getYear = new Date().getFullYear();
+    thisYear.innerHTML = getYear;
+  }
+  localStorage.setItem("submissionFlag", "0")
+  whatsappLoader(lpLanguage);
 });
