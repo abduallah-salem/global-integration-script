@@ -11,17 +11,18 @@ const getUrlVars = () => {
   }
   return vars;
 };
+
 const messagePH = (language) => {
   const messageField = document.getElementById("message");
   if (messageField) {
     const messagePlaceholder =
-      language == "Arabic" || language == "arabic"
+      language.toLowerCase() === "arabic"
         ? "اترك رسالتك"
         : "Leave Your Message";
-    //Placeholder, change to Arabic by replacing the Leave Your Message text with اترك رسالتك
     document.getElementById("message").placeholder = messagePlaceholder;
   }
-  if (language == "Arabic" || language == "arabic") {
+
+  if (language.toLowerCase() === "arabic") {
     let rtlStyle = document.createElement("style");
     rtlStyle.appendChild(
       document.createTextNode(`h1, h2, h3, h4, h5, h6, p, ul, li, ol, span, input, textarea, select, label {
@@ -84,8 +85,7 @@ const fixedHeader = (et) => {
 
 const callButtonHandler = (et) => {
   if (
-    document.getElementById("customContactUs").value == "Yes" ||
-    document.getElementById("customContactUs").value == "yes"
+    document.getElementById("customContactUs").value.toLowerCase() === "yes"
   ) {
     //customer button
     let callButtonDiv = document.createElement("div");
@@ -133,21 +133,14 @@ const callButtonHandler = (et) => {
         document.querySelector(".bPhoneNumber").innerHTML =
           heroContact.length > 0 ? heroContact : `+${heroNumber}`;
       } else if (!callButton.classList.contains("contact-us")) {
-        callButton.innerHTML =
-          heroContact.length > 0
-            ? `<span class="label" style="Top: 50%; position: absolute; direction: ltr !important;"><strong>${heroContact}</strong></span>`
-            : `<span class="label" style="Top: 50%; position: absolute; direction: ltr !important;"><strong>+${heroNumber}</strong></span>`;
+        callButton.innerHTML = `<span class="label" style="Top: 50%; position: absolute; direction: ltr !important;"><strong>${heroContact.length > 0 ? heroContact : heroNumber}</strong></span>`;
       }
     }
   }
 };
 
 const whatsappLoader = (language) => {
-  /* zapier webhook */
   const webHook = document.getElementById("zapierwh").value;
-
-  /* Enter the client's whatsapp number with this format +971501234567 */
-  const waPhoneNumber = document.getElementById("whatsapp").value;
 
   if (webHook == "" || webHook == undefined) {
     return;
@@ -158,9 +151,9 @@ const whatsappLoader = (language) => {
     },
   });
   let whatsappDiv = document.createElement("div");
-  if (language == "arabic" || language == "Arabic") {
-    whatsappDiv.innerHTML = `<div class="waContainer">
-        <div class="waHeader"><span>تواصل معنا الآن</span></div>
+  const lang = language.toLowerCase() === "arabic" ? "ar" : "en";
+  whatsappDiv.innerHTML = `<div class="waContainer">
+        <div class="waHeader"><span>${lang === "ar" ? "تواصل معنا الآن" : "Contact us now!"}</span></div>
         <div class="waClose">
           <svg class="svg-icon" viewBox="0 0 20 20">
             <path fill="none"
@@ -174,12 +167,12 @@ const whatsappLoader = (language) => {
         <div class="waInnerContainerBG">
         
         </div>
-        <div class="waText" style="text-align: right; color: #000;"><span>مرحبا، كيف يمكننا مساعدتك</span></div>
+        <div class="waText" style="text-align: ${lang === "ar" ? "right" : "left"}; color: #000;"><span>${lang === "ar" ? "مرحبا، كيف يمكننا مساعدتك" : "Hi, How can we help you?"}</span></div>
             
         <div class="waForm">
         
-          <input type="tel" name="Phone Number" id="phoneNumber" placeholder="رقم جوالك">
-          <input type="text" name="Message" id="wMessage" placeholder="رسالتك">
+          <input type="tel" name="Phone Number" id="phoneNumber" placeholder="${lang === "ar" ? "رقم جوالك" : "Phone Number"}">
+          <input type="text" name="Message" id="wMessage" placeholder="${lang === "ar" ? "رسالتك" : "Message"}">
         
         </div>
         <div id="sendMessage"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
@@ -199,49 +192,6 @@ const whatsappLoader = (language) => {
             d="M166667 0c92048 0 166667 74619 166667 166667s-74619 166667-166667 166667S0 258715 0 166667 74619 0 166667 0zm63085 107282c-15665-15699-36503-24333-58696-24333-45718-1-82928 37213-82928 82964 0 14614 3828 28909 11081 41469l-11776 43001 43984-11543c12130 6608 25776 10109 39627 10109h33c45720 0 82963-37213 82963-82963 0-22175-8634-43001-24300-58694l12-12zm-58672 127669c-12391 0-24528-3339-35117-9620l-2525-1507-26100 6835 6970-25441-1633-2613c-6939-10958-10561-23642-10561-36687 0-38029 30935-68976 69003-68976 18407 0 35750 7198 48759 20206 13015 13049 20173 30351 20173 48790-31 38056-30965 69003-68975 69003l6 10zm37804-51665c-2061-1049-12265-6048-14160-6740-1894-691-3274-1049-4679 1048-1372 2060-5359 6740-6574 8139-1215 1375-2417 1571-4476 522-2061-1049-8767-3235-16677-10300-6153-5491-10326-12293-11539-14353-1214-2060-136-3204 920-4215 953-923 2063-2416 3108-3631 1049-1214 1375-2063 2063-3465 691-1375 354-2590-167-3632-522-1045-4679-11249-6373-15407-1664-4062-3401-3496-4677-3566-1214-62-2589-62-3958-62-1368 0-3631 520-5525 2585-1894 2061-7261 7098-7261 17299 0 10205 7422 20047 8464 21453 1048 1371 14620 22332 35412 31301 4941 2124 8800 3400 11807 4387 4972 1568 9482 1342 13049 815 3987-587 12265-5006 14002-9848 1735-4845 1735-8990 1215-9847-492-923-1864-1433-3957-2494l-15 13h-1z"
             fill="url(#a)"></path>
         </svg></div>`;
-  } else {
-    whatsappDiv.innerHTML = `<div class="waContainer">
-        <div class="waHeader"><span>Contact us now!</span></div>
-        <div class="waClose">
-          <svg class="svg-icon" viewBox="0 0 20 20">
-            <path fill="none"
-              d="M15.898,4.045c-0.271-0.272-0.713-0.272-0.986,0l-4.71,4.711L5.493,4.045c-0.272-0.272-0.714-0.272-0.986,0s-0.272,0.714,0,0.986l4.709,4.711l-4.71,4.711c-0.272,0.271-0.272,0.713,0,0.986c0.136,0.136,0.314,0.203,0.492,0.203c0.179,0,0.357-0.067,0.493-0.203l4.711-4.711l4.71,4.711c0.137,0.136,0.314,0.203,0.494,0.203c0.178,0,0.355-0.067,0.492-0.203c0.273-0.273,0.273-0.715,0-0.986l-4.711-4.711l4.711-4.711C16.172,4.759,16.172,4.317,15.898,4.045z">
-            </path>
-          </svg>
-          </svg>
-        
-        </div>
-        <div class="waInnerContainer"></div>
-        <div class="waInnerContainerBG">
-        
-        </div>
-        <div class="waText" style="text-align: left; color: black;"><span>Hi, How can we help you?</span></div>
-        
-        
-        <div class="waForm">
-        
-          <input type="tel" name="Phone Number" id="phoneNumber" placeholder="Phone Number">
-          <input type="text" name="Message" id="wMessage" placeholder="Message">
-        
-        </div>
-        <div id="sendMessage"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-            <path fill="currentColor"
-              d="M1.101 21.757L23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z"></path>
-          </svg></div>
-        </div>
-        <div class="wa"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 333333 333333" shape-rendering="geometricPrecision"
-          text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd">
-          <defs>
-            <linearGradient id="a" gradientUnits="userSpaceOnUse" x1="278113" y1="-12693.3" x2="55219.7" y2="346026">
-              <stop offset="0" stop-color="#5dd069"></stop>
-              <stop offset="1" stop-color="#2bb641"></stop>
-            </linearGradient>
-          </defs>
-          <path
-            d="M166667 0c92048 0 166667 74619 166667 166667s-74619 166667-166667 166667S0 258715 0 166667 74619 0 166667 0zm63085 107282c-15665-15699-36503-24333-58696-24333-45718-1-82928 37213-82928 82964 0 14614 3828 28909 11081 41469l-11776 43001 43984-11543c12130 6608 25776 10109 39627 10109h33c45720 0 82963-37213 82963-82963 0-22175-8634-43001-24300-58694l12-12zm-58672 127669c-12391 0-24528-3339-35117-9620l-2525-1507-26100 6835 6970-25441-1633-2613c-6939-10958-10561-23642-10561-36687 0-38029 30935-68976 69003-68976 18407 0 35750 7198 48759 20206 13015 13049 20173 30351 20173 48790-31 38056-30965 69003-68975 69003l6 10zm37804-51665c-2061-1049-12265-6048-14160-6740-1894-691-3274-1049-4679 1048-1372 2060-5359 6740-6574 8139-1215 1375-2417 1571-4476 522-2061-1049-8767-3235-16677-10300-6153-5491-10326-12293-11539-14353-1214-2060-136-3204 920-4215 953-923 2063-2416 3108-3631 1049-1214 1375-2063 2063-3465 691-1375 354-2590-167-3632-522-1045-4679-11249-6373-15407-1664-4062-3401-3496-4677-3566-1214-62-2589-62-3958-62-1368 0-3631 520-5525 2585-1894 2061-7261 7098-7261 17299 0 10205 7422 20047 8464 21453 1048 1371 14620 22332 35412 31301 4941 2124 8800 3400 11807 4387 4972 1568 9482 1342 13049 815 3987-587 12265-5006 14002-9848 1735-4845 1735-8990 1215-9847-492-923-1864-1433-3957-2494l-15 13h-1z"
-            fill="url(#a)"></path>
-        </svg></div>`;
-  }
 
   document.getElementById("lp-pom-root").appendChild(whatsappDiv);
   let wa = document.querySelector(".wa");
@@ -304,7 +254,10 @@ const whatsappLoader = (language) => {
     let googleGCLID = document.getElementById("gclid").value;
     const waPhoneNumber2 = document.getElementById("whatsapp").value;
     if (/^(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$/.test(phoneNumber)) {
-      if (localStorage.getItem("submissionFlag") === "0") {
+      const localStorageVar = JSON.parse(
+        localStorage.getItem("submissionFlag"),
+      );
+      if (localStorageVar?.status !== "submitted") {
         let countryCode = document
           .getElementById("countryCode")
           .value.substring(0, 3);
@@ -334,7 +287,14 @@ const whatsappLoader = (language) => {
           method: "POST",
           body: formData,
         });
-        localStorage.setItem("submissionFlag", "1")
+        localStorage.setItem(
+          "submissionFlag",
+          JSON.stringify({
+            status: "submitted",
+            expiry: new Date().getTime() + 60 * 60 * 1000,
+          }),
+        );
+        console.log("Form submitted");
       }
       const getMainURL = async (device) => {
         try {
@@ -358,10 +318,8 @@ const whatsappLoader = (language) => {
         ) ||
         (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)
       ) {
-        // true for mobile device
         device = "mobile";
       } else {
-        // false for not mobile device
         device = "desktop";
       }
       const mainURL = await getMainURL(device);
@@ -376,7 +334,7 @@ const whatsappLoader = (language) => {
   });
 };
 
-window.addEventListener("DOMContentLoaded", (event) => {
+window.addEventListener("DOMContentLoaded", (e) => {
   const lpLanguage = document.getElementById("lpLanguage").value;
   messagePH(lpLanguage);
 
@@ -392,6 +350,18 @@ window.addEventListener("DOMContentLoaded", (event) => {
     const getYear = new Date().getFullYear();
     thisYear.innerHTML = getYear;
   }
-  localStorage.setItem("submissionFlag", "0")
+  const submissionFlag = JSON.parse(localStorage.getItem("submissionFlag"));
+  if (
+    submissionFlag === null ||
+    submissionFlag?.expiry < new Date().getTime()
+  ) {
+    localStorage.setItem(
+      "submissionFlag",
+      JSON.stringify({
+        status: "0",
+        expiry: new Date().getTime() + 60 * 60 * 1000,
+      }),
+    );
+  }
   whatsappLoader(lpLanguage);
 });
