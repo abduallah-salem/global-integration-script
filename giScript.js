@@ -323,8 +323,13 @@ const whatsappLoader = (language) => {
         device = "desktop";
       }
       const mainURL = await getMainURL(device);
-      window.open(`${mainURL}/send?phone=${waPhoneNumber2}&text=${message}`);
-
+      const fullURL = `${mainURL}/send?phone=${waPhoneNumber2}&text=${message}`;
+      const newWindow = window.open(fullURL);
+      if (newWindow) {
+        newWindow.focus();
+      } else {
+        window.location.href = fullURL;
+      }
       dataLayer.push({ event: "lead" });
     } else {
       alert(
