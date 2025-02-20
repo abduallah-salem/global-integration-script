@@ -114,7 +114,7 @@ const callButtonHandler = (et) => {
       event.preventDefault();
       if (!phoneCallEventSent) {
         window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({ event: "phone_call", phone_number: heroNumber });
+        window.dataLayer.push({ event: "phone_call", phone_number: `+${heroNumber}` });
 
         phoneCallEventSent = true;
 
