@@ -83,6 +83,8 @@ const fixedHeader = (et) => {
     colorOverlayCSS;
 };
 
+let phoneCallEventSent = false;
+
 const callButtonHandler = (et) => {
   if (
     document.getElementById("customContactUs").value.toLowerCase() === "yes"
@@ -103,9 +105,24 @@ const callButtonHandler = (et) => {
 
     document.getElementById("lp-pom-root").appendChild(callButtonDiv);
   }
-  const callButtons = document.querySelectorAll(".call-button");
 
   let heroNumber = `${document.getElementById("countryCode").value}${document.getElementById("heroNumber").value}`;
+
+  const callButtons = document.querySelectorAll(".call-button");
+  callButtons.forEach((callButton) => {
+    callButton.addEventListener("click", () => {
+      event.preventDefault();
+      if (!phoneCallEventSent) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: "phone_call", phone_number: heroNumber });
+
+        phoneCallEventSent = true;
+
+        window.location.href = callButton.href;
+      };
+    });
+  });
+
   let heroContact = document.getElementById("heroContact");
   if (heroContact) {
     heroContact = heroContact.value.length > 0 ? heroContact.value : "";
