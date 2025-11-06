@@ -83,8 +83,6 @@ const fixedHeader = (et) => {
     colorOverlayCSS;
 };
 
-let phoneCallEventSent = false;
-
 const callButtonHandler = (et) => {
   if (
     document.getElementById("customContactUs").value.toLowerCase() === "yes"
@@ -112,14 +110,11 @@ const callButtonHandler = (et) => {
   callButtons.forEach((callButton) => {
     callButton.addEventListener("click", () => {
       event.preventDefault();
-      if (!phoneCallEventSent) {
+      
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ event: "phone_call", phone_number: `+${heroNumber}` });
 
-        phoneCallEventSent = true;
-
         window.location.href = callButton.href;
-      };
     });
   });
 
