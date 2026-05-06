@@ -108,13 +108,9 @@ const callButtonHandler = (et) => {
 
   const callButtons = document.querySelectorAll(".call-button");
   callButtons.forEach((callButton) => {
-    callButton.addEventListener("click", () => {
-      event.preventDefault();
-      
+    callButton.addEventListener("click", () => {    
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ event: "phone_call", phone_number: `+${heroNumber}` });
-
-        window.location.href = callButton.href;
     });
   });
 
