@@ -111,6 +111,7 @@ const callButtonHandler = (et) => {
     callButton.addEventListener("click", () => {    
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ event: "phone_call", phone_number: `+${heroNumber}` });
+        window.location.href = `tel:00${heroNumber}`;
     });
   });
 
@@ -135,7 +136,7 @@ const callButtonHandler = (et) => {
 
     for (let callButton of callButtons) {
       //Change tracking phone number
-      callButton.href = `clkn/tel/00${heroNumber}`;
+      callButton.href = `tel:00${heroNumber}`;
       //Change call to action and tracking phone number
       if (callButton.classList.contains("customButton")) {
         document.querySelector(".bPhoneNumber").innerHTML =
